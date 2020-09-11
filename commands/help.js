@@ -16,7 +16,8 @@ class HelpCommand extends Command {
   async exec(msg) {
     msg.channel.send(new MessageEmbed()
       .setTitle('How To Use the Among Us Bot')
-      .setDescription('*The bot will automatically set its nickname and the name of the voice channel to match the latest four-letter code sent.*')
+      .setDescription('*The bot will automatically set its nickname and the name of the voice channel to match the latest four-letter code sent (in all capital letters).*')
+      .setThumbnail('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.HCuyxDU5qqVDlpp0FnPVJwAAAA%26pid%3DApi&f=1')
       .setFooter('Bot made by Rehkloos. Check out my website at https://rehkloos.com', 'https://avatars1.githubusercontent.com/u/1954355?s=460&v=4')
       .setColor(0x8f00ff)
       .addField('!queue', 'Adds yourself to the end of the queue. You will be auto-removed after 3 hours.')
@@ -25,6 +26,19 @@ class HelpCommand extends Command {
       .addField('!ping', 'Pings everyone in the queue, to be used when a slot becomes available in-game.')
       .addField('!ping first', 'Pings only the first person in line in the queue.')
       .addField('!overlay [channel name]', 'Generates a Discord Overlay URL for the given channel (defaults to the channel you\'re currently in).')
+      .addFields({
+        name: '.',
+        value: '---------------------------------------------------------------------',
+        inline: 'true'
+      }, {
+        name: 'Github',
+        value: '[Contribute Here!](https://github.com/Rehkloos/imposter-bot/)',
+        inline: 'true'
+      }, {
+        name: 'Twitter',
+        value: '[Follow me on Twitter!](https://www.twitter.com/rehkloos)',
+        inline: 'true'
+      }, )
     );
   }
 }

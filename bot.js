@@ -1,4 +1,6 @@
 require('dotenv').config();
+const express = require("express");
+
 const {
   AkairoClient,
   CommandHandler,
@@ -8,6 +10,13 @@ const {
 const sqlite = require('sqlite');
 const sqlite3 = require('sqlite3');
 const L = require('./logger');
+
+const app = express();
+const port = process.env.PORT || '0.0.0.0';
+
+app.listen(port, () => {
+  console.log(`Server running in ${process.env.NODE_ENV} on port ${port}`);
+});
 
 class AmongUsClient extends AkairoClient {
   constructor() {

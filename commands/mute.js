@@ -28,19 +28,35 @@ class MuteCommand extends Command {
           if (alreadyMuted) {
             member.voice.setMute(true);
             //member.voice.setDeaf(true);
-            msg.channel.send(`Sssh, the round begins, silence.`);
+            msg.channel.send(`Sssh, the round begins, silence.`).then(msg => {
+                msg.delete({
+                  timeout: 10000
+                });
+              })
+              .catch(console.error);
+
           } else {
 
             member.voice.setMute(false);
             //member.voice.setDeaf(false);
-            msg.channel.send(`The round of discussion initiated.`);
+            msg.channel.send(`The round of discussion initiated.`).then(msg => {
+                msg.delete({
+                  timeout: 10000
+                });
+              })
+              .catch(console.error);
           }
         }
       } else {
         msg.channel.send("You must be in the game channel to use this command!");
       }
     } else {
-      msg.channel.send("You must be in the game channel to use this command!");
+      msg.channel.send("You must be in the game channel to use this command!").then(msg => {
+          msg.delete({
+            timeout: 10000
+          });
+        })
+        .catch(console.error);
     }
   }
 }

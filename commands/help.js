@@ -19,12 +19,13 @@ class HelpCommand extends Command {
       .setDescription('*The bot will automatically set its nickname and the name of the voice channel to match the latest four-letter code sent (in all capital letters).*')
       .setThumbnail('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.HCuyxDU5qqVDlpp0FnPVJwAAAA%26pid%3DApi&f=1')
       .setFooter('Bot made by Rehkloos. Check out my website at https://rehkloos.com', 'https://avatars1.githubusercontent.com/u/1954355?s=460&v=4')
-      .setColor(0x8f00ff)
+      .setColor(0xDC143C)
       .addField('!queue', 'Adds yourself to the end of the queue. You will be auto-removed after 3 hours.')
       .addField('!dequeue', 'Removes yourself from the queue.')
       .addField('!list', 'Displays a list of everyone in the queue, without pinging them.')
       .addField('!ping', 'Pings everyone in the queue, to be used when a slot becomes available in-game.')
       .addField('!ping first', 'Pings only the first person in line in the queue.')
+      .addField('!format', 'shows recommended lobbies settings')
       .addField('!overlay [channel name]', 'Generates a Discord Overlay URL for the given channel (defaults to the channel you\'re currently in).')
       .addFields({
         name: '.',

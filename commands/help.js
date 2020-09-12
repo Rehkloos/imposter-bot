@@ -25,7 +25,7 @@ class HelpCommand extends Command {
       .addField('!list', 'Displays a list of everyone in the queue, without pinging them.')
       .addField('!ping', 'Pings everyone in the queue, to be used when a slot becomes available in-game.')
       .addField('!ping first', 'Pings only the first person in line in the queue.')
-      .addField('!format', 'shows recommended lobbies settings')
+      .addField('!format or !recommended', 'shows recommended lobbies settings')
       .addField('!create', 'create Among Us category, voice channel and queue voice channels')
       .addField('!mute or !m', 'Toggle mute everyone in the active VC')
       .addField('!overlay [channel name]', 'Generates a Discord Overlay URL for the given channel (defaults to the channel you\'re currently in).')

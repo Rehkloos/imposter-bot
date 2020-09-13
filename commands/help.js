@@ -28,6 +28,7 @@ class HelpCommand extends Command {
       .addField('!format or !recommended', 'shows recommended lobbies settings')
       .addField('!create', 'create Among Us category, voice channel and queue voice channels')
       .addField('!mute or !m', 'Toggle mute everyone in the active VC')
+      .addField('!nuke', 'admin can clear "codes" channel (limit: 100 messages)')      
       .addField('!overlay [channel name]', 'Generates a Discord Overlay URL for the given channel (defaults to the channel you\'re currently in).')
       .addFields({
         name: '.',

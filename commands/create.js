@@ -2,6 +2,10 @@ const {
   Command
 } = require('discord-akairo');
 const L = require('../logger');
+const {
+  MessageEmbed
+} = require('discord.js');
+
 
 class CreateCommand extends Command {
   constructor() {
@@ -16,8 +20,11 @@ class CreateCommand extends Command {
     const gen = 'Among-gen';
     const categoryName = 'Among Us';
     const codes = 'codes';
+    const amongus = 'amongus';
+    const amongus0 = 'amongus0';
+    const amongus1 = 'amongus1';
     const queue = 'queue';
-    //const parentCat = msg.guild.channels.cache.find(channel => channel.name.includes(categoryName));
+
 
     const everyoneTEXT = [
       // everyone
@@ -60,24 +67,33 @@ class CreateCommand extends Command {
         .catch(console.error);
     }
 
-    if ((!msg.guild.channels.cache.find(c => c.name === gen)) || (!msg.guild.channels.cache.find(c => c.name === codes)) || (!msg.guild.channels.cache.find(c => c.name === queue))) {
-      for (var i = 1; i < 3; i++) { // CREATE 2 text rooms
-        msg.guild.channels.create(codes + String(i), {
-          type: 'text',
-          permissionOverwrites: everyoneTEXT
-        });
-      }
-      msg.guild.channels.create(queue, {
-        type: 'voice',
-        permissionOverwrites: everyoneVC
-      });
-    } else if ((msg.guild.channels.cache.find(c => c.name === gen)) || (msg.guild.channels.cache.find(c => c.name === codes)) || (msg.guild.channels.cache.find(c => c.name === queue))) {
-      msg.channel.send(`General, Codes, & Queue Channels exists`).then(msg => {
+    if (msg.guild.channels.cache.find(c => c.name === amongus0) && msg.guild.channels.cache.find(c => c.name === amongus1) || msg.guild.channels.cache.find(c => c.name === queue) && msg.guild.channels.cache.find(c => c.name === codes)) {
+      msg.channel.send(new MessageEmbed()
+          .setTitle("ATTENTION!")
+          .setDescription(`"codes" & "queue" Channels exists`)
+          .setColor(0xDC143C)
+        ).then(msg => {
           msg.delete({
             timeout: 10000
           });
         })
         .catch(console.error);
+    } else if (!msg.guild.channels.cache.find(c => c.name === amongus0) && !msg.guild.channels.cache.find(c => c.name === amongus1)) {
+      for (var i = 0; i < 2; i++) { // CREATE 2 text rooms
+        msg.guild.channels.create(amongus + String(i), {
+          type: 'text',
+          permissionOverwrites: everyoneTEXT
+        });
+      }
+      setTimeout(async () => {
+        const mychannel = await (msg.guild.channels.cache.find(c => c.name === amongus0));
+        if (mychannel) mychannel.setName(codes);
+      }, 2000);
+
+      setTimeout(async () => {
+        const mychannel = await (msg.guild.channels.cache.find(c => c.name === amongus1));
+        if (mychannel) mychannel.setName(queue);
+      }, 3000);
     }
   }
 }

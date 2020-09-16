@@ -20,46 +20,59 @@ class CreateCommand extends Command {
     const gen = 'Among-gen';
     const categoryName = 'Among Us';
     const codes = 'codes';
-    const amongus = 'amongus';
+    let amongus = 'amongus';
     const amongus0 = 'amongus0';
     const amongus1 = 'amongus1';
     const queue = 'queue';
 
-
-    const everyoneTEXT = [
-      // everyone
-      {
-        id: msg.guild.id,
-        allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY'],
-      },
-    ];
-
-
-    const everyoneVC = [
-      // everyone
-      {
-        id: msg.guild.id,
-        allow: ['VIEW_CHANNEL', 'SPEAK', 'CONNECT'],
-      },
-    ];
+    const everyone = ['VIEW_CHANNEL', 'CONNECT', 'SPEAK', 'CONNECT', 'SEND_MESSAGES', 'READ_MESSAGE_HISTORY'];
 
     const maxCAP = 10;
+
+    let role = msg.member.roles.cache.find(r => r.name === amongus);
+
+    if (role) {
+      msg.channel.send(new MessageEmbed()
+          .setTitle("ATTENTION!")
+          .setDescription(`Role exists`)
+          .setColor(0xDC143C)
+        ).then(msg => {
+          msg.delete({
+            timeout: 10000
+          });
+        })
+        .catch(console.error);
+    } else if (!role) {
+      msg.guild.roles.create({
+          data: {
+            name: amongus,
+            color: '#DC143C',
+            permissions: everyone
+          },
+        })
+        .then(console.log)
+        .catch(console.error);
+    }
 
     if ((!msg.guild.channels.cache.find(c => c.name === categoryName))) {
       msg.guild.channels.create(categoryName, {
         type: 'category',
-        permissionOverwrites: everyoneTEXT
+        permissionOverwrites: everyone
       }).then(createdChannel => {
         var id = createdChannel.id;
         msg.guild.channels.create(gen, {
           type: 'voice',
           parent: id,
           userLimit: maxCAP,
-          permissionOverwrites: everyoneVC
+          permissionOverwrites: everyone
         });
       });
     } else if ((msg.guild.channels.cache.find(c => c.name === categoryName))) {
-      msg.channel.send(`Among Us Channel exists`).then(msg => {
+      msg.channel.send(new MessageEmbed()
+          .setTitle("ATTENTION!")
+          .setDescription(`Among Us channels exists`)
+          .setColor(0xDC143C)
+        ).then(msg => {
           msg.delete({
             timeout: 10000
           });
@@ -70,7 +83,7 @@ class CreateCommand extends Command {
     if (msg.guild.channels.cache.find(c => c.name === amongus0) && msg.guild.channels.cache.find(c => c.name === amongus1) || msg.guild.channels.cache.find(c => c.name === queue) && msg.guild.channels.cache.find(c => c.name === codes)) {
       msg.channel.send(new MessageEmbed()
           .setTitle("ATTENTION!")
-          .setDescription(`"codes" & "queue" Channels exists`)
+          .setDescription(`codes & queue Channels exists`)
           .setColor(0xDC143C)
         ).then(msg => {
           msg.delete({
@@ -82,7 +95,7 @@ class CreateCommand extends Command {
       for (var i = 0; i < 2; i++) { // CREATE 2 text rooms
         msg.guild.channels.create(amongus + String(i), {
           type: 'text',
-          permissionOverwrites: everyoneTEXT
+          permissionOverwrites: everyone
         });
       }
       setTimeout(async () => {

@@ -1,6 +1,6 @@
 const {
   Command
-} = require('discord-akairo');
+  } = require('discord-akairo');
 const {
   MessageEmbed
 } = require('discord.js');
@@ -31,11 +31,8 @@ class HelpCommand extends Command {
       .addField('!nuke', 'admin can clear "codes" channel (limit: 100 messages)')
       .addField('!maps', 'all the "Among Us" maps')            
       .addField('!overlay [channel name]', 'Generates a Discord Overlay URL for the given channel (defaults to the channel you\'re currently in).')
+      .addField('---------------------------------------------------------------------')
       .addFields({
-        name: '.',
-        value: '---------------------------------------------------------------------',
-        inline: 'true'
-      }, {
         name: 'Github',
         value: '[Contribute Here!](https://github.com/Rehkloos/imposter-bot/)',
         inline: 'true'
@@ -43,7 +40,7 @@ class HelpCommand extends Command {
         name: 'Twitter',
         value: '[Follow me on Twitter!](https://www.twitter.com/rehkloos)',
         inline: 'true'
-      }, )
+      },)
     );
   }
 }

@@ -12,7 +12,7 @@ const blacklistedWords = new Set(['NICE', 'OKAY', 'STFU', 'WHOA', 'GUYS', 'LMAO'
 class CodeCommand extends Command {
   constructor() {
     super('code', {
-      regex: /^[A-Z]{4}$/,
+      regex: /^[A-Z]{6}$/,
       channel: 'guild',
       clientPermissions: ['MANAGE_CHANNELS']
     });
@@ -24,9 +24,11 @@ class CodeCommand extends Command {
       var gamechannelID = "";
       gamechannelID = msg.guild.channels.cache.find(channel => channel.name.includes("AmongUs | "));
 
-      let oldCode = await this.client.settings.get(msg.guild.id, 'code', '');
-      if (oldCode === msg.content) return;
-      await this.client.settings.set(msg.guild.id, 'code', msg.content);
+      setTimeout(async () => {
+        let oldCode = await this.client.settings.get(msg.guild.id, 'code', '');
+        if (oldCode === msg.content) return;
+        await this.client.settings.set(msg.guild.id, 'code', msg.content);
+      }, 2000);
 
       let maxMembers = -1;
       let maxChannel = null;
@@ -49,7 +51,7 @@ class CodeCommand extends Command {
           if (mychannel) mychannel.send(new MessageEmbed()
             .setColor("#3A92EF")
             .setTitle(`${msg.content}`)
-            .setDescription(`The code is ${msg.content}.\n\nCheck the voice channel name too!\n*sometimes the voice channel name wont change due to being rate limited*`) // make this look better
+            .setDescription(`The code is ${msg.content}.\n\nCheck the bot name too!\n*sometimes the voice channel name wont change due to being rate limited*`) // make this look better
             .setTimestamp()
             .setFooter(`Requested by ${msg.author.username}`, msg.author.avatarURL)
           ).then(msg => {
@@ -72,6 +74,9 @@ class CodeCommand extends Command {
 
         maxChannel.edit({
           name: `AmongUs | ${msg.content}`
+        });
+        msg.member.voice.channel.edit({
+          name: `AmongUs | ${msg.content}` // This among us NEEDS to be here, it makes the bot work without storing data
         });
         msg.guild.me.edit({
           nick: `${msg.content} | ${this.client.user.username}`
